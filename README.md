@@ -1,10 +1,12 @@
 # Yu-Gi-Oh! Speed Duel React Three Fiber Scene
 
+[Live at](https://dor-rondel.github.io/r3f-yugioh-scene/)
+
 ### Creative Commons Attribution
 
 [CC License](https://creativecommons.org/)
 
-[Millenium Item](https://sketchfab.com/3d-models/millennium-puzzle-yugioh-86e4b0f0ba25419689330e42f2da4ac7)
+[Millenium Puzzle](https://sketchfab.com/3d-models/millennium-puzzle-yugioh-86e4b0f0ba25419689330e42f2da4ac7)
 [Hungry Burger](https://sketchfab.com/3d-models/yugioh-hungry-burger-6b137d98f6514ffd8a2b17954efc841f)
 [Black Dragon's Chick](https://sketchfab.com/3d-models/yugioh-black-dragons-chick-3964489f18a84449b71064a228f2ae88)
 [Meteor Black Dragon](https://sketchfab.com/3d-models/yugioh-meteor-b-dragon-ca895d9abb07405794031c216d7476fb)
