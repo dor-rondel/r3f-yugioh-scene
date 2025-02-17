@@ -9,6 +9,9 @@ const LoadingScene = () => {
 
   const { width } = useThree((state) => state.viewport)
 
+  const isDevelopment = window.location.origin.includes("localhost")
+  const fontUrlPath = isDevelopment ? "/" : "/r3f-yugioh-scene/"
+
   return (
     <group>
       <Stars
@@ -45,7 +48,7 @@ const LoadingScene = () => {
           position={[20, 3, 7]}
           scale={[-0.5, 0.5, 0.5]}
           size={width / 9}
-          font='/font.json'
+          font={`${fontUrlPath}font.json`}
           curveSegments={24}
           bevelSegments={1}
           bevelEnabled
