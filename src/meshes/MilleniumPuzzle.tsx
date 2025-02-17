@@ -1,13 +1,29 @@
 import { useGLTF } from "@react-three/drei"
+import { Group, Vector3 } from "three"
+import { useFrame } from "@react-three/fiber"
+import { useRef } from "react"
 
 import { MilleniumPuzzleGLBMapping } from "../types/MilleniumPuzzleGLBMapping"
 
-const MilleniumPuzzle = () => {
+type MilleniumPuzzleProps = {
+  position: Vector3
+}
+
+const MilleniumPuzzle = ({ position }: MilleniumPuzzleProps) => {
   const { nodes, materials } = useGLTF(
     "./meshes/millennium_puzzle.glb"
   ) as MilleniumPuzzleGLBMapping
+
+  const groupRef = useRef<Group>(null)
+
+  useFrame(() => {
+    if (groupRef.current) {
+      groupRef.current.rotation.y += 0.03
+    }
+  })
+
   return (
-    <group dispose={null}>
+    <group dispose={null} position={position} ref={groupRef}>
       <group rotation={[-Math.PI / 2, 0, -Math.PI / 2]}>
         <group rotation={[Math.PI / 2, 0, 0]} scale={0.01}>
           <group rotation={[-Math.PI / 2, 0, 0]} scale={100}>

@@ -1,5 +1,7 @@
 # Yu-Gi-Oh! Speed Duel React Three Fiber Scene
 
+An example scenario of a YU-Gi-Oh! Speed Duel board state rendered in 3D
+
 [Live at](https://dor-rondel.github.io/r3f-yugioh-scene/)
 
 ### Creative Commons Attribution
