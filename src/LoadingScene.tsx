@@ -1,4 +1,10 @@
-import { Sparkles, Stars, Text3D, useMatcapTexture } from "@react-three/drei"
+import {
+  Sparkles,
+  Stars,
+  Text3D,
+  useMatcapTexture,
+  useProgress,
+} from "@react-three/drei"
 import { useThree } from "@react-three/fiber"
 import { Vector3 } from "three"
 
@@ -6,6 +12,7 @@ import MilleniumPuzzle from "./meshes/MilleniumPuzzle"
 
 const LoadingScene = () => {
   const [matcapTexture] = useMatcapTexture("CB4E88_F99AD6_F384C3_ED75B9")
+  const { progress } = useProgress()
 
   const { width } = useThree((state) => state.viewport)
 
@@ -45,7 +52,7 @@ const LoadingScene = () => {
         <pointLight position={[5, 5, 5]} intensity={1} color='white' />
 
         <Text3D
-          position={[20, 3, 7]}
+          position={[15, 3, 7]}
           scale={[-0.5, 0.5, 0.5]}
           size={width / 9}
           font={`${fontUrlPath}font.json`}
@@ -58,7 +65,7 @@ const LoadingScene = () => {
           lineHeight={0.9}
           letterSpacing={0.3}
         >
-          Loading Yu-GI-OH! Scene...
+          Loading Scene: {progress.toFixed(2)}%
           <meshMatcapMaterial color='white' matcap={matcapTexture} />
         </Text3D>
         <MilleniumPuzzle position={new Vector3(0, -2, 0)} />
