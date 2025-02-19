@@ -1,28 +1,18 @@
-import {
-  Sparkles,
-  Stars,
-  Text3D,
-  useMatcapTexture,
-  useProgress,
-} from "@react-three/drei"
+import { Sparkles, Stars, useProgress } from "@react-three/drei"
 import { useThree } from "@react-three/fiber"
 import { useEffect } from "react"
 import { Vector3 } from "three"
 
 import MilleniumPuzzle from "./meshes/MilleniumPuzzle"
+import Text from "./meshes/Text"
 
 type LoadingSceneProps = {
   onComplete: (completed: boolean) => void
 }
 
 const LoadingScene = ({ onComplete }: LoadingSceneProps) => {
-  const [matcapTexture] = useMatcapTexture("CB4E88_F99AD6_F384C3_ED75B9")
   const { progress } = useProgress()
-
   const { width } = useThree((state) => state.viewport)
-
-  const isDevelopment = window.location.origin.includes("localhost")
-  const fontUrlPath = isDevelopment ? "/" : "/r3f-yugioh-scene/"
 
   useEffect(() => {
     if (progress >= 100) {
@@ -62,23 +52,13 @@ const LoadingScene = ({ onComplete }: LoadingSceneProps) => {
 
         <pointLight position={[5, 5, 5]} intensity={1} color='white' />
 
-        <Text3D
-          position={[15, 3, 7]}
-          scale={[-0.5, 0.5, 0.5]}
+        <Text
+          position={new Vector3(15, 3, 7)}
+          scale={new Vector3(-0.5, 0.5, 0.5)}
           size={width / 9}
-          font={`${fontUrlPath}font.json`}
-          curveSegments={24}
-          bevelSegments={1}
-          bevelEnabled
-          bevelSize={0.08}
-          bevelThickness={0.03}
-          height={1}
-          lineHeight={0.9}
-          letterSpacing={0.3}
         >
           Loading Scene: {progress.toFixed(2)}%
-          <meshMatcapMaterial color='white' matcap={matcapTexture} />
-        </Text3D>
+        </Text>
         <MilleniumPuzzle position={new Vector3(0, -2, 0)} />
       </group>
     </group>
