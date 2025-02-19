@@ -6,11 +6,16 @@ import {
   useProgress,
 } from "@react-three/drei"
 import { useThree } from "@react-three/fiber"
+import { useEffect } from "react"
 import { Vector3 } from "three"
 
 import MilleniumPuzzle from "./meshes/MilleniumPuzzle"
 
-const LoadingScene = () => {
+type LoadingSceneProps = {
+  onComplete: (completed: boolean) => void
+}
+
+const LoadingScene = ({ onComplete }: LoadingSceneProps) => {
   const [matcapTexture] = useMatcapTexture("CB4E88_F99AD6_F384C3_ED75B9")
   const { progress } = useProgress()
 
@@ -18,6 +23,12 @@ const LoadingScene = () => {
 
   const isDevelopment = window.location.origin.includes("localhost")
   const fontUrlPath = isDevelopment ? "/" : "/r3f-yugioh-scene/"
+
+  useEffect(() => {
+    if (progress >= 100) {
+      onComplete(true)
+    }
+  }, [progress])
 
   return (
     <group>

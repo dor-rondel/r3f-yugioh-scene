@@ -1,3 +1,7 @@
+import { Euler, Vector3 } from "three"
+import { useThree } from "@react-three/fiber"
+import { useEffect } from "react"
+
 import BlackDragonsChick from "./meshes/BlackDragonsChick"
 import HungryBurger from "./meshes/HungryBurger"
 import Gaia from "./meshes/Gaia"
@@ -6,9 +10,13 @@ import MeteorBlackDragon from "./meshes/MeteorBlackDragon"
 import MonsterZone from "./meshes/MonsterZone"
 import RocketWarrior from "./meshes/RocketWarrior"
 
-import { Euler, Vector3 } from "three"
-
 const BoardScene = () => {
+  const { camera } = useThree()
+
+  useEffect(() => {
+    camera.position.set(-140, 40, -100)
+  }, [])
+
   return (
     <group>
       <group>
@@ -25,36 +33,36 @@ const BoardScene = () => {
         <pointLight position={[5, 5, 5]} intensity={1} color='white' />
       </group>
       <group>
-        <MonsterZone position={new Vector3(0, 0, 300)} />
+        <MonsterZone position={new Vector3(0, -50, 300)} />
         <MonsterZone
-          position={new Vector3(300, 0, 0)}
+          position={new Vector3(300, -50, 0)}
           rotation={new Euler(0, 600, 0)}
         />
         <BlackDragonsChick
-          position={new Vector3(150, 45, 250)}
+          position={new Vector3(150, -5, 250)}
           scale={new Vector3(20, 20, 20)}
           rotation={new Euler(0, 15, 0)}
         />
         <Gaia
-          position={new Vector3(250, 45, 250)}
+          position={new Vector3(250, -5, 250)}
           scale={new Vector3(5, 5, 5)}
         />
         <RocketWarrior
-          position={new Vector3(30, 45, 250)}
+          position={new Vector3(30, -5, 250)}
           scale={new Vector3(15, 15, 15)}
           rotation={new Euler(0, 9.5, 0)}
         />
 
         <HungryBurger
-          position={new Vector3(45, 40, 30)}
+          position={new Vector3(45, -10, 30)}
           scale={new Vector3(10, 10, 10)}
         />
         <Linkuriboh
-          position={new Vector3(150, 40, 30)}
+          position={new Vector3(150, -10, 30)}
           scale={new Vector3(15, 15, 15)}
         />
         <MeteorBlackDragon
-          position={new Vector3(250, 60, 30)}
+          position={new Vector3(250, 10, 30)}
           scale={new Vector3(15, 15, 15)}
           rotation={new Euler(0, 9.5, 0)}
         />
