@@ -1,13 +1,24 @@
-import { Sparkles, Stars, Text3D, useMatcapTexture } from "@react-three/drei"
+import { Sparkles, Stars, useProgress } from "@react-three/drei"
 import { useThree } from "@react-three/fiber"
+import { useEffect } from "react"
 import { Vector3 } from "three"
 
 import MilleniumPuzzle from "./meshes/MilleniumPuzzle"
+import Text from "./meshes/Text"
 
-const LoadingScene = () => {
-  const [matcapTexture] = useMatcapTexture("CB4E88_F99AD6_F384C3_ED75B9")
+type LoadingSceneProps = {
+  onComplete: (completed: boolean) => void
+}
 
+const LoadingScene = ({ onComplete }: LoadingSceneProps) => {
+  const { progress } = useProgress()
   const { width } = useThree((state) => state.viewport)
+
+  useEffect(() => {
+    if (progress >= 100) {
+      onComplete(true)
+    }
+  }, [progress])
 
   return (
     <group>
@@ -41,23 +52,13 @@ const LoadingScene = () => {
 
         <pointLight position={[5, 5, 5]} intensity={1} color='white' />
 
-        <Text3D
-          position={[20, 3, 7]}
-          scale={[-0.5, 0.5, 0.5]}
+        <Text
+          position={new Vector3(15, 3, 7)}
+          scale={new Vector3(-0.5, 0.5, 0.5)}
           size={width / 9}
-          font='/font.json'
-          curveSegments={24}
-          bevelSegments={1}
-          bevelEnabled
-          bevelSize={0.08}
-          bevelThickness={0.03}
-          height={1}
-          lineHeight={0.9}
-          letterSpacing={0.3}
         >
-          Loading Yu-GI-OH! Scene...
-          <meshMatcapMaterial color='white' matcap={matcapTexture} />
-        </Text3D>
+          Loading Scene: {progress.toFixed(2)}%
+        </Text>
         <MilleniumPuzzle position={new Vector3(0, -2, 0)} />
       </group>
     </group>

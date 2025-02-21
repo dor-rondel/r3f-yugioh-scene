@@ -1,13 +1,14 @@
 import { useGLTF } from "@react-three/drei"
 
 import { LinkuribohGLBMapping } from "../types/LinkuribohGLBMapping"
+import { GenericMeshProps } from "../types/GenericMeshProps"
 
-const Linkuriboh = () => {
+const Linkuriboh = ({ position, ...props }: GenericMeshProps) => {
   const { nodes, materials } = useGLTF(
     "./meshes/linkuriboh.glb"
   ) as LinkuribohGLBMapping
   return (
-    <group dispose={null}>
+    <group dispose={null} position={position} {...props}>
       <group rotation={[-Math.PI / 2, 0, 0]} scale={0.292}>
         <group rotation={[Math.PI / 2, 0, 0]}>
           <mesh

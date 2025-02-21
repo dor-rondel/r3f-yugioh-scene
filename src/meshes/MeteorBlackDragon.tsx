@@ -1,13 +1,14 @@
 import { useGLTF } from "@react-three/drei"
 
 import { MeteorDragonGLBMapping } from "../types/MeteorDragonGLBMapping"
+import { GenericMeshProps } from "../types/GenericMeshProps"
 
-const MeteorBlackDragon = () => {
+const MeteorBlackDragon = ({ position, ...props }: GenericMeshProps) => {
   const { nodes, materials } = useGLTF(
     "./meshes/meteor_black_dragon.glb"
   ) as MeteorDragonGLBMapping
   return (
-    <group dispose={null}>
+    <group dispose={null} position={position} {...props}>
       <group rotation={[-Math.PI / 2, 0, 0]}>
         <mesh
           castShadow

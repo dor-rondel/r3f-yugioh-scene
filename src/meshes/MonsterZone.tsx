@@ -1,14 +1,15 @@
 import { useGLTF } from "@react-three/drei"
 
 import { MonsterZoneGLBMapping } from "../types/MonsterZoneGLBMapping"
+import { GenericMeshProps } from "../types/GenericMeshProps"
 
-const MonsterZone = () => {
+const MonsterZone = ({ position, ...props }: GenericMeshProps) => {
   const { nodes } = useGLTF(
     "./meshes/monster_zone.glb"
   ) as MonsterZoneGLBMapping
 
   return (
-    <group dispose={null}>
+    <group position={position} {...props}>
       <mesh
         castShadow
         receiveShadow

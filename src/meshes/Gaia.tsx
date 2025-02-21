@@ -1,11 +1,12 @@
 import { useGLTF } from "@react-three/drei"
 
 import { GaiaGLBMapping } from "../types/GaiaGLBMapping"
+import { GenericMeshProps } from "../types/GenericMeshProps"
 
-const Gaia = () => {
+const Gaia = ({ position, ...props }: GenericMeshProps) => {
   const { nodes, materials } = useGLTF("./meshes/gaia.glb") as GaiaGLBMapping
   return (
-    <group dispose={null}>
+    <group dispose={null} position={position} {...props}>
       <group rotation={[-Math.PI / 2, 0, 0]}>
         <mesh
           castShadow

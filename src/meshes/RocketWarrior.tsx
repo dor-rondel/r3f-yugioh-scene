@@ -1,13 +1,14 @@
 import { useGLTF } from "@react-three/drei"
 
 import { RocketWarriorGLBMapping } from "../types/RocketWarriorGLBMapping"
+import { GenericMeshProps } from "../types/GenericMeshProps"
 
-const RocketWarrior = () => {
+const RocketWarrior = ({ position, ...props }: GenericMeshProps) => {
   const { nodes, materials } = useGLTF(
     "./meshes/rocket_warrior.glb"
   ) as RocketWarriorGLBMapping
   return (
-    <group dispose={null}>
+    <group dispose={null} position={position} {...props}>
       <group rotation={[-Math.PI / 2, 0, 0]}>
         <mesh
           castShadow
