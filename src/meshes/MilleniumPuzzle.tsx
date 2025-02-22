@@ -1,15 +1,12 @@
 import { useGLTF } from "@react-three/drei"
-import { Group, Vector3 } from "three"
+import { Group } from "three"
 import { useFrame } from "@react-three/fiber"
 import { useRef } from "react"
 
 import { MilleniumPuzzleGLBMapping } from "../types/MilleniumPuzzleGLBMapping"
+import { GenericMeshProps } from "../types/GenericMeshProps"
 
-type MilleniumPuzzleProps = {
-  position: Vector3
-}
-
-const MilleniumPuzzle = ({ position }: MilleniumPuzzleProps) => {
+const MilleniumPuzzle = ({ position }: GenericMeshProps) => {
   const { nodes, materials } = useGLTF(
     "./meshes/millennium_puzzle.glb"
   ) as MilleniumPuzzleGLBMapping
