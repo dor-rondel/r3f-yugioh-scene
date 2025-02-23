@@ -1,12 +1,24 @@
 import { useGLTF } from "@react-three/drei"
+import { useFrame } from "@react-three/fiber"
+import { Group } from "three"
+import { useRef } from "react"
 
 import { GaiaGLBMapping } from "../types/GaiaGLBMapping"
 import { GenericMeshProps } from "../types/GenericMeshProps"
 
-const Gaia = ({ position, ...props }: GenericMeshProps) => {
+const Gaia = ({ position, animate, ...props }: GenericMeshProps) => {
   const { nodes, materials } = useGLTF("./meshes/gaia.glb") as GaiaGLBMapping
+
+  const groupRef = useRef<Group>(null)
+
+  useFrame(() => {
+    if (groupRef.current && animate) {
+      groupRef.current.position.z -= 0.5
+    }
+  })
+
   return (
-    <group dispose={null} position={position} {...props}>
+    <group dispose={null} position={position} ref={groupRef} {...props}>
       <group rotation={[-Math.PI / 2, 0, 0]}>
         <mesh
           castShadow

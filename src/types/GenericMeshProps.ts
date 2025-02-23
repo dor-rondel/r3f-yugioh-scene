@@ -4,4 +4,6 @@ export type GenericMeshProps = {
   position: Vector3
   rotation?: Euler
   scale?: Vector3
+  animate?: boolean
+  onClick?: () => void
 }
