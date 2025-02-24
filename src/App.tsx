@@ -1,6 +1,5 @@
 import { Canvas } from "@react-three/fiber"
 import { Suspense, useState } from "react"
-import { OrbitControls } from "@react-three/drei"
 
 import LoadingScene from "./LoadingScene"
 import BoardScene from "./BoardScene"
@@ -20,14 +19,6 @@ const App = () => {
         <color attach='background' args={[sceneLoaded ? 0x65bfda : 0x000000]} />
         <Suspense fallback={<LoadingScene onComplete={setSceneLoaded} />}>
           <BoardScene />
-          <OrbitControls
-            enableZoom={true}
-            enablePan={true}
-            zoomSpeed={0.15}
-            dampingFactor={0.05}
-            autoRotate={true}
-            autoRotateSpeed={-0.1}
-          />
         </Suspense>
       </Canvas>
     </main>

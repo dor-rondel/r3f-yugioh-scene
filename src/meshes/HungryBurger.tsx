@@ -1,14 +1,26 @@
 import { useGLTF } from "@react-three/drei"
+import { Group } from "three"
+import { useRef } from "react"
+import { useFrame } from "@react-three/fiber"
 
 import { HungryBurgerGLBMapping } from "../types/HungryBurgerGLBMapping"
 import { GenericMeshProps } from "../types/GenericMeshProps"
 
-const HungryBurger = ({ position, ...props }: GenericMeshProps) => {
+const HungryBurger = ({ position, animate, ...props }: GenericMeshProps) => {
   const { nodes, materials } = useGLTF(
     "./meshes/hungry_burger.glb"
   ) as HungryBurgerGLBMapping
+
+  const groupRef = useRef<Group>(null)
+
+  useFrame(() => {
+    if (groupRef.current && animate) {
+      groupRef.current.position.z += 0.5
+    }
+  })
+
   return (
-    <group dispose={null} position={position} {...props}>
+    <group dispose={null} position={position} ref={groupRef} {...props}>
       <group rotation={[-Math.PI / 2, 0, 0]}>
         <mesh
           castShadow

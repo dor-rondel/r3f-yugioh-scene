@@ -1,15 +1,30 @@
 import { useGLTF } from "@react-three/drei"
+import { useFrame } from "@react-three/fiber"
+import { useRef } from "react"
+import { Group } from "three"
 
 import { BlackDragonGLBMapping } from "../types/BlackDragonGLBMapping"
 import { GenericMeshProps } from "../types/GenericMeshProps"
 
-const BlackDragonsChick = ({ position, ...props }: GenericMeshProps) => {
+const BlackDragonsChick = ({
+  position,
+  animate,
+  ...props
+}: GenericMeshProps) => {
   const { nodes, materials } = useGLTF(
     "./meshes/black_dragons_chick.glb"
   ) as BlackDragonGLBMapping
 
+  const groupRef = useRef<Group>(null)
+
+  useFrame(() => {
+    if (groupRef.current && animate) {
+      groupRef.current.position.z -= 0.5
+    }
+  })
+
   return (
-    <group dispose={null} position={position} {...props}>
+    <group dispose={null} position={position} ref={groupRef} {...props}>
       <group rotation={[-Math.PI / 2, 0, 0]}>
         <mesh
           castShadow

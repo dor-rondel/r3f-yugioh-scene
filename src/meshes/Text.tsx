@@ -1,5 +1,5 @@
 import { Text3D, useMatcapTexture } from "@react-three/drei"
-import { Euler, Vector3 } from "three"
+import { Euler, Mesh, Vector3 } from "three"
 
 type TextProps = {
   size: number
@@ -7,9 +7,17 @@ type TextProps = {
   position: Vector3
   scale: Vector3
   rotation?: Euler
+  onClick?: () => void
 }
 
-const Text = ({ size, position, scale, rotation, children }: TextProps) => {
+const Text = ({
+  size,
+  position,
+  scale,
+  rotation,
+  children,
+  onClick,
+}: TextProps) => {
   const [matcapTexture] = useMatcapTexture("CB4E88_F99AD6_F384C3_ED75B9")
   const isDevelopment = window.location.origin.includes("localhost")
   const fontUrlPath = isDevelopment ? "/" : "/r3f-yugioh-scene/"
@@ -29,6 +37,7 @@ const Text = ({ size, position, scale, rotation, children }: TextProps) => {
       height={1}
       lineHeight={0.9}
       letterSpacing={0.3}
+      onClick={onClick}
     >
       {children}
       <meshMatcapMaterial color='white' matcap={matcapTexture} />

@@ -1,14 +1,26 @@
 import { useGLTF } from "@react-three/drei"
+import { useFrame } from "@react-three/fiber"
+import { useRef } from "react"
+import { Group } from "three"
 
 import { LinkuribohGLBMapping } from "../types/LinkuribohGLBMapping"
 import { GenericMeshProps } from "../types/GenericMeshProps"
 
-const Linkuriboh = ({ position, ...props }: GenericMeshProps) => {
+const Linkuriboh = ({ position, animate, ...props }: GenericMeshProps) => {
   const { nodes, materials } = useGLTF(
     "./meshes/linkuriboh.glb"
   ) as LinkuribohGLBMapping
+
+  const groupRef = useRef<Group>(null)
+
+  useFrame(() => {
+    if (groupRef.current && animate) {
+      groupRef.current.position.z += 0.5
+    }
+  })
+
   return (
-    <group dispose={null} position={position} {...props}>
+    <group dispose={null} position={position} ref={groupRef} {...props}>
       <group rotation={[-Math.PI / 2, 0, 0]} scale={0.292}>
         <group rotation={[Math.PI / 2, 0, 0]}>
           <mesh

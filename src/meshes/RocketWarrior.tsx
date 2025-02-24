@@ -1,14 +1,30 @@
 import { useGLTF } from "@react-three/drei"
+import { useRef } from "react"
+import { Group } from "three"
+import { useFrame } from "@react-three/fiber"
 
 import { RocketWarriorGLBMapping } from "../types/RocketWarriorGLBMapping"
 import { GenericMeshProps } from "../types/GenericMeshProps"
 
-const RocketWarrior = ({ position, ...props }: GenericMeshProps) => {
+const RocketWarrior = ({ position, animate, ...props }: GenericMeshProps) => {
   const { nodes, materials } = useGLTF(
     "./meshes/rocket_warrior.glb"
   ) as RocketWarriorGLBMapping
+
+  const groupRef = useRef<Group>(null)
+
+  useFrame(() => {
+    if (groupRef.current && animate) {
+      groupRef.current.position.z -= 0.5
+    }
+
+    if (groupRef.current?.position.z !== position.z && !animate) {
+      groupRef.current!.position.z = position.z
+    }
+  })
+
   return (
-    <group dispose={null} position={position} {...props}>
+    <group dispose={null} position={position} ref={groupRef} {...props}>
       <group rotation={[-Math.PI / 2, 0, 0]}>
         <mesh
           castShadow
